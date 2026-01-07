@@ -22,8 +22,8 @@ def print_board(board):
     # for i in range(HEIGHT):
     #     for j in range(WIDTH)
     print("1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣")
-    for r in board:  # 몇번째 줄
-        for c in r:  # 몇번째 칸
+    for r in board:  # 몇번째 '줄'
+        for c in r:  # 몇번째 '칸'
             if c == EMPTY:
                 print("⚪", end="")
             elif c == RED:
@@ -33,6 +33,7 @@ def print_board(board):
         print("")
 
 
+## 색칠하기
 # board: 판떼기
 # col: 1~7, 몇 번째 줄에 놓을건지
 # turn: 현재 돌을 놓은 사람
@@ -41,11 +42,12 @@ def drop(board, col, turn):
     col = int(col)  # 숫자라고 명명하기
     for i in range(HEIGHT - 1, -1, -1):
         if board[i][col - 1] == EMPTY:
-            board[i][col - 1] = turn
+            board[i][col - 1] = turn  # 빈칸이면, 해당 turn의 돌 놓기
             return True
     return False
 
 
+## 4목이 있는지, 꽉 찼는지 체크하기
 # return
 # RED, BLACK, DRAW, NOTYET
 def check_end(board):
@@ -56,7 +58,7 @@ def check_end(board):
                 board[i][j] == board[i][j + 1] == board[i][j + 2] == board[i][j + 3]
                 and board[i][j] != EMPTY
             ):
-                return board[i][j]
+                return board[i][j]  # 여기있는 돌 주인
 
     # 세로 체크
     for i in range(HEIGHT - 4 + 1):
