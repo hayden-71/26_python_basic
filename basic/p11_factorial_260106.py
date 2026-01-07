@@ -18,7 +18,7 @@ def fac(n):
     result = 1
     while n >= 2:  # 여기가 1이 아니라 2인 이유: 조금 더 효율적으로
         result *= n
-        n -= 1
+        n -= 1  # 이거 안 쓰면 무한루프
     return result
 
 
@@ -29,7 +29,7 @@ def factorial2(n):
     # 5 * 4 * factorial2(3)
     # 5 * 4 * 3 * factorial2(2)
     # 5 * 4 * 3 * 2 * 1
-    if n <= 1:
+    if n <= 1:  # 멈추는 조건: n이 1이면 돌려줘
         return 1  # 마지막에 어떻게 끝날지가 있어야!
     else:
         return n * factorial2(n - 1)
@@ -46,8 +46,8 @@ print(f"5! = {factorial2(5)}")
 def pa(s):
     for i in range(len(s) // 2):
         if s[i] != s[-1 - i]:
-            return False
-    return True
+            return False  # 하나라도 예외 있으면/틀리면 탈락! 모두 맞아야만 함
+    return True  # 결과적으로 True
 
 
 # 뒤집어서 확인
@@ -64,7 +64,7 @@ def pa(s):
 
     while len(d) > 1:
         first = d[0]
-        del d[0]
+        del d[0]  # 혹은 이렇게 한줄로 first = s.pop(0)
         last = d.pop()
         if first != last:
             return False
@@ -95,20 +95,24 @@ ispalindrome("aaabbbaaa")
 
 
 def change_str(st):
-    result = ""
+    result = ""  # 비어있는 문자열
 
+    # 쉬운 단축키
     st.swapcase()
 
+    # 다른 방법
     result = "".join(
         [c.upper() if c.islower() else c.lower() for c in st]
     )  # 이건 뭐야.........
 
+    # 다른 방법
     for s in st:
         if s.isupper():
             result += s.lower()
         else:
             result += s.upper()
 
+    # 이렇게 구현 가능
     for s in st:
         if ord("A") <= ord(s) <= ord("Z"):  # 굳이 ord 안 써도 가능
             result += s.lower()
