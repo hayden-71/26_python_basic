@@ -74,7 +74,7 @@ class TodoManager:
             pass
 
 
-def menu():
+def menu():  # 다른 함수를 '호출'할뿐 아무값도 '전달받지 않기 때문에' 괄호가 비어있다
     manager = TodoManager()
     manager.load_by_file()
 
