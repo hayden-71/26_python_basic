@@ -1,5 +1,5 @@
-# 세로, 가로 칸 보드 만들기
-# 하나의 ㅇ에 경우의 수는 3가지
+# 세로 6, 가로 7 칸 보드 만들기
+# 하나의 ㅇ에 경우의 수는 3가지 (빈, 빨, 검)
 # 누구의 턴인지
 # 4목이 되면 끝나기
 # 혹은 게임판이 다 차면 끝
@@ -33,18 +33,18 @@ def print_board(board):
         print("")
 
 
-## 색칠하기
+## 색칠하기 (“현재 턴의 돌을, 사용자가 고른 열에 떨어뜨린다”)
 # board: 판떼기
-# col: 1~7, 몇 번째 줄에 놓을건지
+# col: 1~7, 몇 번째 줄(열)에 놓을건지
 # turn: 현재 돌을 놓은 사람
 # return: True 돌을 성공적으로 놓음 / False 해당 줄이 꽉차서 놓지 못함
 def drop(board, col, turn):
     col = int(col)  # 숫자라고 명명하기
-    for i in range(HEIGHT - 1, -1, -1):
+    for i in range(HEIGHT - 1, -1, -1):  # 아래줄부터..
         if board[i][col - 1] == EMPTY:
-            board[i][col - 1] = turn  # 빈칸이면, 해당 turn의 돌 놓기
+            board[i][col - 1] = turn  # 빈칸이면, 돌 놓기
             return True
-    return False
+    return False  # 꽉차서 돌 못 놓음
 
 
 ## 4목이 있는지, 꽉 찼는지 체크하기
@@ -53,14 +53,14 @@ def drop(board, col, turn):
 def check_end(board):
     # 가로 체크
     for i in range(HEIGHT):
-        for j in range(WIDTH - 4 + 1):
+        for j in range(WIDTH - 4 + 1):  # 4칸 연속 확인
             if (
                 board[i][j] == board[i][j + 1] == board[i][j + 2] == board[i][j + 3]
                 and board[i][j] != EMPTY
             ):
                 return board[i][j]  # 여기있는 돌 주인
 
-    # 세로 체크
+    # 세로 체크 <<<<<<<<<<<<<<
     for i in range(HEIGHT - 4 + 1):
         for j in range(WIDTH):
             if (
@@ -95,8 +95,8 @@ def check_end(board):
 
     # 꽉 참 체크
     for r in board:
-        if r.count(EMPTY) != 0:
-            return NOTYET  # 각 줄을 보고 0이 아닌게 있으면 아직 하는 중
+        if r.count(EMPTY) != 0:  # .count(찾는 요소)
+            return NOTYET  # 각 줄을 보고 빈칸 갯수가 0이 아니면, 아직 하는 중
     # if board[0].count(EMPTY) != 0: return NOTYET
     return DRAW
 
